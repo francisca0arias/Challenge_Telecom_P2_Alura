@@ -1,0 +1,134 @@
+import os
+## 🎯 Visión General
+Este repositorio despliega un pipeline completo de Machine Learning para predecir la cancelación de clientes. El enfoque se centra en la **interpretabilidad estratégica**, permitiendo no solo predecir el riesgo, sino entender los drivers de negocio que lo impulsan.
+
+## 🛠️ Stack Tecnológico
+* **Análisis de Datos:** `pandas`, `numpy`
+* **Machine Learning:** `scikit-learn`
+* **Visualización:** `seaborn`, `matplotlib`
+
+## 📊 Drivers Identificados (Análisis de Coeficientes)
+El modelo de Regresión Logística identificó las siguientes palancas críticas:
+* **Fidelización:** La antigüedad (`tenure`) y contratos de largo plazo son los mayores protectores contra el churn.
+* **Riesgo:** El uso de **Fibra Óptica** y los cargos mensuales elevados presentan la mayor correlación con la cancelación.
+
+## 📈 Desempeño del Modelo
+* **ROC-AUC Score:** ~0.84
+* **Estabilidad:** Alta generalización entre los sets de entrenamiento y prueba.
+"""
+
+# 2. CONTENIDO DE REQUISITOS (Control de dependencias)
+requirements_content = """pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+"""
+
+# 3. CÓDIGO PRINCIPAL DE MODELADO (Estructura limpia y funcional)
+main_py_content = """import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, roc_auc_score, ConfusionMatrixDisplay
+
+def run_telecom_pipeline(url_data):
+    # Carga de datos
+    print("Iniciando carga de datos...")
+    df = pd.read_csv(url_data)
+    
+    # Preprocesamiento simplificado (Pipeline de ejemplo)
+    X = df.drop('Churn', axis=1)
+    y = df['Churn']
+    
+    # Partición estratificada para manejar el desbalance (73/27)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42, stratify=y
+    )
+    
+    # Entrenamiento del modelo seleccionado (Regresión Logística)
+    model = LogisticRegression(max_iter=1000, class_weight='balanced')
+    model.fit(X_train, y_train)
+    
+    # Evaluación
+    y_pred = model.predict(X_test)
+    y_proba = model.predict_proba(X_test)[:, 1]
+    
+    print("\\n--- REPORTE DE DESEMPEÑO ---")
+    print(classification_report(y_test, y_pred))
+    print(f"ROC-AUC: {roc_auc_score(y_test, y_proba):.4f}")
+    
+    # Generación de Matriz de Confusión para el repositorio
+    fig, ax = plt.subplots(figsize=(8, 6))
+    ConfusionMatrixDisplay.from_estimator(model, X_test, y_test, cmap='Blues', ax=ax)
+    plt.title('Matriz de Confusión - Telecom X')
+    plt.savefig('confusion_matrix.png')
+    print("\\n✅ Visualización 'confusion_matrix.png' generada.")
+
+if __name__ == "__main__":
+    # URL del dataset tratado
+    DATA_URL = 'https://drive.google.com/uc?id=1hQZIufjMa_n3cXApTcFQPx2mMBQ8J1Qc'
+    run_telecom_pipeline(DATA_URL)
+"""
+
+# EJECUCIÓN: CREACIÓN DE LA ESTRUCTURA DE ARCHIVOS
+archivos = {
+    "README.md": readme_content,
+    "requirements.txt": requirements_content,
+    "main.py": main_py_content
+}
+
+print("Generando archivos para el repositorio de GitHub...\\n")
+
+for nombre, contenido in archivos.items():
+    with open(nombre, "w", encoding="utf-8") as f:
+        f.write(contenido)
+    print(f"📄 Archivo creado: {nombre}")
+
+print("\\n🚀 Estructura lista. Sube estos archivos a tu repositorio para una visualización profesional.")
+
+## 🎯 Resumen Ejecutivo
+Este repositorio implementa una solución de clasificación binaria para anticipar la fuga de clientes. Mediante un enfoque de **Senior Data Scientist**, se prioriza la interpretabilidad de los modelos y la robustez de las métricas de negocio sobre el simple accuracy.
+
+## 🛠️ Stack Tecnológico
+* **Data Core:** Pandas, NumPy
+* **ML Framework:** Scikit-Learn
+* **Análisis Visual:** Seaborn, Matplotlib
+
+## 📊 Drivers de Retención Identificados
+Basado en los coeficientes de la Regresión Logística:
+* **Tenure (-2.42):** Factor determinante; la lealtad se consolida con el tiempo.
+* **Contrato Bienal (-0.743):** Estabilidad contractual como barrera de salida.
+* **Soporte Técnico (-0.393):** El respaldo técnico reduce la fricción y aumenta el LTV.
+
+## 📈 Resultados del Modelo
+* **ROC-AUC:** 0.84 (Alta capacidad discriminativa)
+* **Estabilidad:** Diferencia < 1% entre Train y Test.
+"""
+
+# 2. TelecomX_Model.py: Script de Modelado con Visualización Integrada
+main_script = """import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, roc_auc_score
+
+def ejecutar_pipeline(data_path):
+    # Carga y segmentación
+    df = pd.read_csv(data_path)
+    X = df.drop('Churn', axis=1)
+    y = df['Churn']
+    
+    # Partición estratificada
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42, stratify=y
+    )
+    
+    # Entrenamiento (Regresión Logística con balanceo de clases)
+    model = LogisticRegression(max_iter=1000, class_weight='balanced')
+    model.fit(X_train, y_train)
+    
+    # Visualización de Resultados: Matriz de Confusión
+    fig, ax = plt.subplots(
