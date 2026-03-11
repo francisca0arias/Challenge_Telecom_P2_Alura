@@ -70,3 +70,44 @@ El modelo de **Regresión Logística** demostró ser el más equilibrado para es
 **Stack Tecnológico:** Python (Pandas, NumPy, Scikit-Learn), Matplotlib, Seaborn.
 
 **Estructura de Archivos:** El repositorio incluye el notebook de análisis (`.ipynb`), el dataset procesado (`.csv`) y los activos visuales de validación técnica.
+🚀 Pipeline de Ejecución: Ordenamiento Operativo
+Para reproducir el análisis de Telecom X, sigue este flujo secuencial:
+
+Fase 1: Configuración del Entorno (Setup)
+Antes de iniciar, se deben consolidar las dependencias técnicas. El proyecto utiliza un stack basado en estabilidad y análisis estadístico.
+
+Instalación: Ejecutar el comando de gestión de paquetes.
+
+Bash
+pip install pandas numpy scikit-learn matplotlib seaborn
+Importación: Carga de módulos de preprocesamiento, modelos (Linear & Ensemble) y métricas de validación.
+
+Fase 2: Ingesta y Preparación de Datos (ETL)
+El flujo de datos está diseñado para ser directo y reproducible:
+
+Extracción: Carga automatizada del dataset datos_tratados.csv mediante la URL de Google Drive integrada en el script.
+
+Taxonomía: Clasificación automática de variables en Categóricas (Encoding) y Numéricas (Scaling).
+
+División Estratégica: Partición del dataset en un ratio 70/30 utilizando stratify=y. Esto garantiza que la proporción de Churn (~26.5%) se mantenga idéntica tanto en el entrenamiento como en la validación.
+
+Fase 3: Modelado y Benchmarking
+Se ejecutan dos experimentos en paralelo para comparar rendimiento:
+
+Modelo Lineal (Regresión Logística): Se entrena para obtener coeficientes interpretables. Se aplica StandardScaler para normalizar las magnitudes de cargos y antigüedad.
+
+Modelo de Conjunto (Random Forest): Se ejecuta para capturar relaciones no lineales complejas entre servicios contratados y permanencia.
+
+Fase 4: Evaluación y Diagnóstico
+Métricas de Performance: Cálculo de ROC-AUC, Recall y F1-Score.
+
+Análisis de Varianza: Comparación de resultados entre Train y Test.
+
+Resultado esperado: Identificación de la estabilidad de la Regresión Logística frente al sobreajuste del Random Forest.
+
+Visualización de Errores: Generación de la Matriz de Confusión para cuantificar la capacidad de detección de falsos negativos.
+
+Fase 5: Interpretación y Cierre (Insights)
+Jerarquización de Variables: Extracción de pesos para determinar que el Tenure es la palanca principal de retención.
+
+Recomendaciones Ejecutivas: Generación de la hoja de ruta para la migración de contratos y optimización de servicios (Fibra Óptica).
