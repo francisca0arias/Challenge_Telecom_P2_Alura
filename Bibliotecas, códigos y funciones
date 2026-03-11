@@ -59,34 +59,6 @@ def run_telecom_pipeline(url_data):
     print(classification_report(y_test, y_pred))
     print(f"ROC-AUC: {roc_auc_score(y_test, y_proba):.4f}")
     
-    # Generación de Matriz de Confusión para el repositorio
-    fig, ax = plt.subplots(figsize=(8, 6))
-    ConfusionMatrixDisplay.from_estimator(model, X_test, y_test, cmap='Blues', ax=ax)
-    plt.title('Matriz de Confusión - Telecom X')
-    plt.savefig('confusion_matrix.png')
-    print("\\n✅ Visualización 'confusion_matrix.png' generada.")
-
-if __name__ == "__main__":
-    # URL del dataset tratado
-    DATA_URL = 'https://drive.google.com/uc?id=1hQZIufjMa_n3cXApTcFQPx2mMBQ8J1Qc'
-    run_telecom_pipeline(DATA_URL)
-"""
-
-# EJECUCIÓN: CREACIÓN DE LA ESTRUCTURA DE ARCHIVOS
-archivos = {
-    "README.md": readme_content,
-    "requirements.txt": requirements_content,
-    "main.py": main_py_content
-}
-
-print("Generando archivos para el repositorio de GitHub...\\n")
-
-for nombre, contenido in archivos.items():
-    with open(nombre, "w", encoding="utf-8") as f:
-        f.write(contenido)
-    print(f"📄 Archivo creado: {nombre}")
-
-print("\\n🚀 Estructura lista. Sube estos archivos a tu repositorio para una visualización profesional.")
 
 ## 🎯 Resumen Ejecutivo
 Este repositorio implementa una solución de clasificación binaria para anticipar la fuga de clientes. Mediante un enfoque de **Senior Data Scientist**, se prioriza la interpretabilidad de los modelos y la robustez de las métricas de negocio sobre el simple accuracy.
